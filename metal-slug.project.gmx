@@ -4,9 +4,7 @@
     <Config>Configs\Default</Config>
   </Configs>
   <NewExtensions/>
-  <sounds name="sound">
-    <sound>sound\feel_gook_inc</sound>
-  </sounds>
+  <sounds name="sound"/>
   <sprites name="sprites">
     <sprite>sprites\collisionbox</sprite>
     <sprites name="Tanks">
@@ -15,6 +13,11 @@
       <sprite>sprites\sprTankHeadpiece</sprite>
       <sprite>sprites\sprTankBody</sprite>
       <sprite>sprites\sprTankTread</sprite>
+      <sprites name="Illum">
+        <sprite>sprites\sprTankHeadpieceIllum</sprite>
+        <sprite>sprites\sprTankBodyIllum</sprite>
+        <sprite>sprites\sprTankTreadIllum</sprite>
+      </sprites>
     </sprites>
     <sprite>sprites\sprGodrays</sprite>
   </sprites>
