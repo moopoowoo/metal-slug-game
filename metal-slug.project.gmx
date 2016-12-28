@@ -13,11 +13,7 @@
       <sprite>sprites\sprTankHeadpiece</sprite>
       <sprite>sprites\sprTankBody</sprite>
       <sprite>sprites\sprTankTread</sprite>
-      <sprites name="Illum">
-        <sprite>sprites\sprTankHeadpieceIllum</sprite>
-        <sprite>sprites\sprTankBodyIllum</sprite>
-        <sprite>sprites\sprTankTreadIllum</sprite>
-      </sprites>
+      <sprites name="Illum"/>
     </sprites>
     <sprite>sprites\sprGodrays</sprite>
     <sprite>sprites\sprite10</sprite>
