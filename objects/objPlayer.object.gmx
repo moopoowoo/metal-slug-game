@@ -73,6 +73,7 @@ keyRight = keyboard_check(vk_right);
 keyLeft = -keyboard_check(vk_left);
 keyJump = keyboard_check_pressed(vk_space);
 keyJumpHeld = keyboard_check(vk_space);
+keyFire = keyboard_check_pressed(ord('D'));
 
 // horizontal speed
 hsp = (keyRight + keyLeft) * spd;
@@ -104,6 +105,18 @@ if (add &lt; -.5) addSign = .1;
 if hsp !=  0 rot += sign(hsp) / 16 else rot /= 1.25;
 
 rot = clamp(rot,-5,5);
+
+// fire
+if(keyFire)
+{
+    with(instance_create(x+180*scale, y-50, Effect))
+    {
+        sprite_index = sprBarrelSmoke;
+        depth = other.depth-1;
+        image_speed = 0.5;
+    }
+}
+
 </string>
           </argument>
         </arguments>

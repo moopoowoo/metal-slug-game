@@ -11,11 +11,14 @@
       <sprite>sprites\tanksheet</sprite>
       <sprite>sprites\sprTankHitbox</sprite>
       <sprite>sprites\sprTankHeadpiece</sprite>
+      <sprite>sprites\sprTankHeadpieceIllum</sprite>
       <sprite>sprites\sprTankBody</sprite>
+      <sprite>sprites\sprTankBodyIllum</sprite>
       <sprite>sprites\sprTankTread</sprite>
+      <sprite>sprites\sprTankTreadIllum</sprite>
     </sprites>
     <sprite>sprites\sprGodrays</sprite>
-    <sprite>sprites\sprite10</sprite>
+    <sprite>sprites\sprBarrelSmoke</sprite>
   </sprites>
   <backgrounds name="background">
     <backgrounds name="Forest Backgrounds">
@@ -39,6 +42,7 @@
     <object>objects\objWall</object>
     <object>objects\camera</object>
     <object>objects\LightSource</object>
+    <object>objects\Effect</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>
