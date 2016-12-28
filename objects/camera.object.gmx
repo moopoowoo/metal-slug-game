@@ -29,11 +29,6 @@
     focus = objPlayer;
     yFocus = objPlayer.y;
 }
-
-display_reset(16,true);
-
-scale = 1.25;
-
 </string>
           </argument>
         </arguments>
@@ -62,9 +57,9 @@ height = window_get_height();
 surface_resize(application_surface,width,height);
 view_wport = width;
 view_hport = height;
-view_wview = width * (scale);
-view_hview = height * (scale);
-display_set_gui_size(width,height);
+view_wview = width;
+view_hview = height;
+//display_set_gui_size(width,height);
 
 view_xview = focus.x - (view_wview / 2);
 view_yview = yFocus - (view_hview / 1.33);

@@ -66,7 +66,7 @@ if(surface_exists(global.surTemporaryLightSource)
     surface_set_target(global.surTemporaryLightSource);
     //draw_clear(c_black);
     draw_set_color(c_black);
-    draw_rectangle(0, 0, window_get_width(), window_get_height(), 0);
+    draw_rectangle(0, 0, surface_get_width(application_surface), surface_get_height(application_surface), 0);
     //draw_set_color(c_white);
 
     with(objPlayer)
