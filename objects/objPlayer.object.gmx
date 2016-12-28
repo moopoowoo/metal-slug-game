@@ -104,18 +104,20 @@ if (add &lt; -.5) addSign = .1;
 
 if hsp !=  0 rot += sign(hsp) / 16 else rot /= 1.25;
 
-rot = clamp(rot,-5,5);
-
 // fire
 if(keyFire)
 {
+    rot = 5*scale;
     with(instance_create(x+180*scale, y-50, Effect))
     {
         sprite_index = sprBarrelSmoke;
         depth = other.depth-1;
-        image_speed = 0.5;
+        image_xscale = other.scale;
+        //image_speed = 0.5;
     }
 }
+
+rot = clamp(rot,-5,5);
 
 </string>
           </argument>
