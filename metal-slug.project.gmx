@@ -20,6 +20,7 @@
       </sprites>
     </sprites>
     <sprite>sprites\sprGodrays</sprite>
+    <sprite>sprites\sprite10</sprite>
   </sprites>
   <backgrounds name="background">
     <backgrounds name="Forest Backgrounds">
@@ -42,6 +43,7 @@
     <object>objects\objPlayer</object>
     <object>objects\objWall</object>
     <object>objects\camera</object>
+    <object>objects\LightSource</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>

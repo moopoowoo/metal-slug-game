@@ -57,7 +57,18 @@ jumpSpd = 24;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>// set keys
+            <string>// DEBUG STUFF
+if(keyboard_check_pressed(ord('R'))) { game_restart(); }
+if(mouse_check_button_pressed(mb_left))
+{
+    with(instance_create(mouse_x, mouse_y, LightSource))
+    {
+        // color n radius
+        depth = other.depth-1;
+    }
+}
+
+// set keys
 keyRight = keyboard_check(vk_right);
 keyLeft = -keyboard_check(vk_left);
 keyJump = keyboard_check_pressed(vk_space);
@@ -122,22 +133,6 @@ if (sign(hsp) == 1) scale = 1 else if (sign(hsp) == -1) scale = -1;
 draw_sprite(sprTankTread, frame, x, y + (sprite_get_height(sprTankTread) / 2) + 12);
 draw_sprite_ext(sprTankHeadpiece, frame, x, y - (sprite_get_height(sprTankHeadpiece) / 2) - 18 + add, scale, 1, add + rot, c_white, 1);
 draw_sprite_ext(sprTankBody, frame, x + add, y, scale, 1, add + rot, c_white, 1);
-
-// Draw tank parts illuminated
-var _sprNum = sprite_get_number(sprTankTreadIllum);
-var _factor = 360/_sprNum;
-if(scale)
-{
-    var _illumRot = _sprNum + round(point_direction(x, y, mouse_x, mouse_y)/_factor)-3;
-}
-else
-{
-    var _illumRot = _sprNum - round(point_direction(x, y, mouse_x, mouse_y)/_factor)+1;
-}
-draw_sprite(sprTankTreadIllum, _illumRot, x, y + (sprite_get_height(sprTankTread) / 2) + 12);
-draw_sprite_ext(sprTankHeadpieceIllum, _illumRot, x, y - (sprite_get_height(sprTankHeadpiece) / 2) - 18 + add, scale, 1, add + rot, c_white, 1);
-draw_sprite_ext(sprTankBodyIllum, _illumRot, x + add, y, scale, 1, add + rot, c_white, 1);
-draw_text(x, y-320, _illumRot);
 
 </string>
           </argument>
