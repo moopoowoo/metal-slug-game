@@ -10,7 +10,9 @@
   <persistent>0</persistent>
   <colour>12632256</colour>
   <showcolour>-1</showcolour>
-  <code>var i;
+  <code>instance_create(0, 0, World);
+
+var i;
 global.background[0] = bkForestGradient;
 global.background[1] = bkForest7;
 global.background[2] = bkForest6;

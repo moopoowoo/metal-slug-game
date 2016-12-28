@@ -19,6 +19,7 @@
     </sprites>
     <sprite>sprites\sprGodrays</sprite>
     <sprite>sprites\sprBarrelSmoke</sprite>
+    <sprite>sprites\sprPixel</sprite>
   </sprites>
   <backgrounds name="background">
     <backgrounds name="Forest Backgrounds">
@@ -38,6 +39,7 @@
     <script>scripts\create_cam.gml</script>
   </scripts>
   <objects name="objects">
+    <object>objects\World</object>
     <object>objects\objPlayer</object>
     <object>objects\objWall</object>
     <object>objects\camera</object>

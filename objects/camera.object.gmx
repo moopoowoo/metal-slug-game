@@ -33,6 +33,7 @@
 display_reset(16,true);
 
 scale = 1.25;
+
 </string>
           </argument>
         </arguments>
@@ -79,6 +80,7 @@ global.backgroundX[3] = view_xview * 0.4;
 global.backgroundX[4] = view_xview * 0.3;
 global.backgroundX[5] = view_xview * 0.2;
 global.backgroundX[6] = view_xview * 0.1;
+
 </string>
           </argument>
         </arguments>
@@ -106,6 +108,7 @@ global.backgroundX[6] = view_xview * 0.1;
 for (i = 0; i &lt;= 8; i++) {
     draw_background_tiled(global.background[i],global.backgroundX[i],global.backgroundY[i]);
 }
+
 </string>
           </argument>
         </arguments>
