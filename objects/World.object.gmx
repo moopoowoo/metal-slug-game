@@ -95,7 +95,7 @@ surface_reset_target();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//draw_surface(global.surLightSources, view_xview, view_yview);
+            <string>//draw_surface(global.surLightSources, view_xview, view_yview); 
 </string>
           </argument>
         </arguments>

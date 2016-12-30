@@ -157,7 +157,6 @@ if (sign(hsp) == 1) scale = 1 else if (sign(hsp) == -1) scale = -1;
 draw_sprite(sprTankTread, frame, x, y + (sprite_get_height(sprTankTread) / 2) + 12);
 draw_sprite_ext(sprTankHeadpiece, frame, x, y - (sprite_get_height(sprTankHeadpiece) / 2) - 18 + add, scale, 1, add + rot, c_white, 1);
 draw_sprite_ext(sprTankBody, frame, x + add, y, scale, 1, add + rot, c_white, 1);
-
 </string>
           </argument>
         </arguments>
