@@ -13,6 +13,7 @@
   <code>instance_create(0, 0, World);
 
 var i;
+
 global.background[0] = bkForestGradient;
 global.background[1] = bkForest7;
 global.background[2] = bkForest6;

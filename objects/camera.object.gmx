@@ -29,6 +29,11 @@
     focus = objPlayer;
     yFocus = objPlayer.y;
 }
+
+screenWidth = display_get_width();
+screenHeight = display_get_height();
+
+window_set_fullscreen(true);
 </string>
           </argument>
         </arguments>
@@ -51,15 +56,20 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>width = window_get_width();
-height = window_get_height();
+            <string>screenWidth = display_get_width();
+screenHeight = display_get_height();
 
-surface_resize(application_surface,width,height);
-view_wport = width;
-view_hport = height;
-view_wview = width;
-view_hview = height;
-//display_set_gui_size(width,height);
+view_wport[0] = screenWidth;
+view_hport[0] = screenHeight;
+view_wview[0] = screenWidth;
+view_hview[0] = screenHeight;
+view_enabled = true;
+view_visible = true;
+
+surface_resize(application_surface, screenWidth, screenHeight);
+application_surface_draw_enable(false);
+display_set_gui_size(screenWidth,screenHeight);
+window_set_size(screenWidth / (2 - window_get_fullscreen()), screenHeight / (2 - window_get_fullscreen()));
 
 view_xview = focus.x - (view_wview / 2);
 view_yview = yFocus - (view_hview / 1.33);
@@ -75,7 +85,29 @@ global.backgroundX[3] = view_xview * 0.4;
 global.backgroundX[4] = view_xview * 0.3;
 global.backgroundX[5] = view_xview * 0.2;
 global.backgroundX[6] = view_xview * 0.1;
-
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_surface_ext(application_surface, 0, 0, 1, 1, 0, c_white, 1);
 </string>
           </argument>
         </arguments>
@@ -103,7 +135,6 @@ global.backgroundX[6] = view_xview * 0.1;
 for (i = 0; i &lt;= 8; i++) {
     draw_background_tiled(global.background[i],global.backgroundX[i],global.backgroundY[i]);
 }
-
 </string>
           </argument>
         </arguments>
