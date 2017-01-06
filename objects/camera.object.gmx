@@ -32,8 +32,19 @@
 
 screenWidth = display_get_width();
 screenHeight = display_get_height();
+view_wport = screenWidth;
+view_hport = screenHeight;
+view_wview = screenWidth;
+view_hview = screenHeight;
+view_enabled = true;
+view_visible = true;
 
-window_set_fullscreen(true);
+surface_resize(application_surface, screenWidth, screenHeight);
+application_surface_draw_enable(false);
+display_set_gui_size(screenWidth, screenHeight);
+window_set_size(screenWidth, screenHeight);
+
+display_reset(0, false);
 </string>
           </argument>
         </arguments>
@@ -59,17 +70,17 @@ window_set_fullscreen(true);
             <string>screenWidth = display_get_width();
 screenHeight = display_get_height();
 
-view_wport[0] = screenWidth;
-view_hport[0] = screenHeight;
-view_wview[0] = screenWidth;
-view_hview[0] = screenHeight;
+view_wport = screenWidth;
+view_hport = screenHeight;
+view_wview = screenWidth;
+view_hview = screenHeight;
 view_enabled = true;
 view_visible = true;
 
 surface_resize(application_surface, screenWidth, screenHeight);
 application_surface_draw_enable(false);
-display_set_gui_size(screenWidth,screenHeight);
-window_set_size(screenWidth / (2 - window_get_fullscreen()), screenHeight / (2 - window_get_fullscreen()));
+display_set_gui_size(screenWidth, screenHeight);
+window_set_size(screenWidth, screenHeight);
 
 view_xview = focus.x - (view_wview / 2);
 view_yview = yFocus - (view_hview / 1.33);
@@ -90,7 +101,7 @@ global.backgroundX[6] = view_xview * 0.1;
         </arguments>
       </action>
     </event>
-    <event eventtype="8" enumb="64">
+    <event eventtype="8" enumb="74">
       <action>
         <libid>1</libid>
         <id>603</id>
