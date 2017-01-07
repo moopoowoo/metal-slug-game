@@ -29,6 +29,36 @@
 radius = 320;
 color = c_white;
 intensity = 1;
+intensityLinearScale = 0; // amount of intensity added or subtracted per frame
+removeOnInvisible = 1; // boolean, destroys instance if intensity reaches 0
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>intensity += intensityLinearScale;
+if(removeOnInvisible &amp;&amp; intensity == 0)
+{
+    instance_destroy();
+}
 
 </string>
           </argument>
@@ -54,59 +84,9 @@ intensity = 1;
             <kind>1</kind>
             <string>draw_set_blend_mode(bm_add);
 
-draw_set_alpha(0.1);
+draw_set_alpha(0.1*intensity);
 draw_circle_color(x, y, radius, color, c_black, 0);
 draw_set_alpha(1);
-
-draw_set_blend_mode(bm_normal);
-
-if(surface_exists(global.surTemporaryLightSource)
-&amp;&amp; surface_exists(global.surLightSources))
-{
-    surface_set_target(global.surTemporaryLightSource);
-    //draw_clear(c_black);
-    draw_set_color(c_black);
-    draw_rectangle(0, 0, surface_get_width(application_surface), surface_get_height(application_surface), 0);
-    //draw_set_color(c_white);
-
-    with(objPlayer)
-    {
-        if(point_distance(x, y, other.x, other.y) &lt;= other.radius)
-        {
-            // Draw tank parts illuminated
-            var _sprNum = sprite_get_number(sprTankTreadIllum);
-            var _factor = 360/_sprNum;
-            if(scale)
-            {
-                var _illumRot = _sprNum + round(point_direction(x, y, other.x, other.y)/_factor)-3;
-            }
-            else
-            {
-                var _illumRot = _sprNum - round(point_direction(x, y, other.x, other.y)/_factor)+1;
-            }
-            var dist = abs(1-point_distance(x, y, other.x, other.y)/other.radius);
-            
-            //draw_rectangle(0, 0, window_get_width(), window_get_height(), 0);
-           
-            draw_sprite_ext(sprTankTreadIllum, _illumRot, x - view_xview, y + (sprite_get_height(sprTankTread) / 2) + 12 - view_yview, image_xscale, image_yscale, image_angle, other.color, dist*other.intensity);
-            draw_sprite_ext(sprTankHeadpieceIllum, _illumRot, x - view_xview, y - (sprite_get_height(sprTankHeadpiece) / 2) - 18 + add - view_yview, scale, 1, add + rot, other.color, dist*other.intensity);
-            draw_sprite_ext(sprTankBodyIllum, _illumRot, x + add - view_xview, y - view_yview, scale, 1, add + rot, other.color, dist*other.intensity);
-            
-            var pdir = point_direction(x, y, other.x, other.y);
-            draw_sprite_ext(sprPixel, 0, x - view_xview, y - view_yview, 400, 400, pdir-90, c_black, 1);
-        }
-        //window_set_caption(string(dist));
-    }
-    
-    surface_reset_target();
-    surface_set_target(global.surLightSources);
-    
-    draw_set_blend_mode(bm_add);
-    draw_surface(global.surTemporaryLightSource, 0, 0);
-    draw_set_blend_mode(bm_normal);
-    
-    surface_reset_target();
-}
 
 draw_set_blend_mode(bm_normal);
 

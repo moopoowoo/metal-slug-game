@@ -123,6 +123,14 @@ if(keyFire)
         depth = other.depth-1;
         image_xscale = other.scale;
         //image_speed = 0.5;
+        
+        with(instance_create(x, y, LightSource))
+        {
+            // color n radius
+            color = make_color_hsv(42, 255, 255);
+            depth = other.depth-1;
+            intensityLinearScale = -0.1;
+        }
     }
 }
 

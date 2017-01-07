@@ -37,6 +37,7 @@
   <paths name="paths"/>
   <scripts name="scripts">
     <script>scripts\create_cam.gml</script>
+    <script>scripts\lightsource_calculate.gml</script>
   </scripts>
   <objects name="objects">
     <object>objects\World</object>

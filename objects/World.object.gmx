@@ -73,6 +73,8 @@ draw_rectangle(0, 0, view_wview, view_hview, 0);
 draw_set_color(c_white);
 surface_reset_target();
 
+lightsource_calculate();
+
 </string>
           </argument>
         </arguments>
@@ -95,7 +97,10 @@ surface_reset_target();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//draw_surface(global.surLightSources, view_xview, view_yview); 
+            <string>draw_set_blend_mode(bm_add);
+draw_surface(global.surLightSources, view_xview, view_yview);
+draw_set_blend_mode(bm_normal);
+
 </string>
           </argument>
         </arguments>
