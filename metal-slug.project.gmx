@@ -9,7 +9,6 @@
     <sprite>sprites\collisionbox</sprite>
     <sprites name="Tanks">
       <sprite>sprites\tanksheet</sprite>
-      <sprite>sprites\tankillumsheet</sprite>
       <sprite>sprites\sprTankHitbox</sprite>
       <sprite>sprites\sprTankHeadpiece</sprite>
       <sprite>sprites\sprTankHeadpieceIllum</sprite>
