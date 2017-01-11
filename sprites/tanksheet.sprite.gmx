@@ -7,18 +7,18 @@
   <coltolerance>0</coltolerance>
   <sepmasks>0</sepmasks>
   <bboxmode>0</bboxmode>
-  <bbox_left>0</bbox_left>
-  <bbox_right>1158</bbox_right>
-  <bbox_top>0</bbox_top>
-  <bbox_bottom>829</bbox_bottom>
+  <bbox_left>2</bbox_left>
+  <bbox_right>178</bbox_right>
+  <bbox_top>16</bbox_top>
+  <bbox_bottom>173</bbox_bottom>
   <HTile>0</HTile>
   <VTile>0</VTile>
   <TextureGroups>
     <TextureGroup0>0</TextureGroup0>
   </TextureGroups>
   <For3D>0</For3D>
-  <width>1159</width>
-  <height>830</height>
+  <width>183</width>
+  <height>186</height>
   <frames>
     <frame index="0">images\tanksheet_0.png</frame>
   </frames>

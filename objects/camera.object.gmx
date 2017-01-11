@@ -34,8 +34,8 @@ screenWidth = display_get_width();
 screenHeight = display_get_height();
 view_wport = screenWidth;
 view_hport = screenHeight;
-view_wview = screenWidth;
-view_hview = screenHeight;
+view_wview = screenWidth / 2;
+view_hview = screenHeight / 2;
 view_enabled = true;
 view_visible = true;
 
@@ -72,8 +72,8 @@ screenHeight = display_get_height();
 
 view_wport = screenWidth;
 view_hport = screenHeight;
-view_wview = screenWidth;
-view_hview = screenHeight;
+view_wview = screenWidth / 2;
+view_hview = screenHeight / 2;
 view_enabled = true;
 view_visible = true;
 
@@ -83,7 +83,7 @@ display_set_gui_size(screenWidth, screenHeight);
 window_set_size(screenWidth, screenHeight);
 
 view_xview = focus.x - (view_wview / 2);
-view_yview = yFocus - (view_hview / 1.33);
+view_yview = yFocus - (view_hview / 1.8);
 
 if keyboard_check(vk_escape) game_end();
 

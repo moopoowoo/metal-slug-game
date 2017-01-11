@@ -154,8 +154,8 @@ rot = clamp(rot,-5,5);
 if (sign(hsp) == 1) scale = 1 else if (sign(hsp) == -1) scale = -1; // I'm not just throwing in scale = sign(hsp) because scale can never equal 0, otherwise the sprite will turn invisible
 
 // Draw tank parts
-draw_sprite(sprTankTread, frame, x, y + (sprite_get_height(sprTankTread) / 1.6));
-draw_sprite_ext(sprTankHeadpiece, frame, x, y - (sprite_get_height(sprTankHeadpiece) / 1.5) + add, scale, 1, add + rot, c_white, 1);
+draw_sprite(sprTankTread, frame, x + (5 * scale), y + (sprite_get_height(sprTankTread) / 1.6));
+draw_sprite_ext(sprTankHeadpiece, frame, x + (10 * scale), y - (sprite_get_height(sprTankHeadpiece) / 1.4) + add, scale, 1, add + rot, c_white, 1);
 draw_sprite_ext(sprTankBody, frame, x + add, y, scale, 1, add + rot, c_white, 1);
 </string>
           </argument>

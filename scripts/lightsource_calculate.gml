@@ -32,8 +32,8 @@ if(surface_exists(global.surTemporaryLightSource)
                     
                     //draw_rectangle(0, 0, window_get_width(), window_get_height(), 0);
                    
-                    draw_sprite_ext(sprTankTreadIllum, _illumRot, x - view_xview, y + (sprite_get_height(sprTankTread) / 2) + 12 - view_yview, image_xscale, image_yscale, image_angle, other.color, dist*other.intensity);
-                    draw_sprite_ext(sprTankHeadpieceIllum, _illumRot, x - view_xview, y - (sprite_get_height(sprTankHeadpiece) / 2) - 18 + add - view_yview, scale, 1, add + rot, other.color, dist*other.intensity);
+                    draw_sprite_ext(sprTankTreadIllum, _illumRot, (x - view_xview) + (5 * objPlayer.scale), y + (sprite_get_height(sprTankTread) / 2) - view_yview, image_xscale, image_yscale, image_angle, other.color, dist*other.intensity);
+                    draw_sprite_ext(sprTankHeadpieceIllum, _illumRot, (x - view_xview) + (10 * objPlayer.scale), y - (sprite_get_height(sprTankHeadpiece) / 1.4) + add - view_yview, scale, 1, add + rot, other.color, dist*other.intensity);
                     draw_sprite_ext(sprTankBodyIllum, _illumRot, x + add - view_xview, y - view_yview, scale, 1, add + rot, other.color, dist*other.intensity);
                     
                     var pdir = point_direction(x, y, other.x, other.y);
