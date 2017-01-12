@@ -6,7 +6,6 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
-    <sprite>sprites\collisionbox</sprite>
     <sprites name="Tanks">
       <sprite>sprites\tanksheet</sprite>
       <sprite>sprites\sprTankHitbox</sprite>
@@ -16,11 +15,18 @@
       <sprite>sprites\sprTankBodyIllum</sprite>
       <sprite>sprites\sprTankTread</sprite>
       <sprite>sprites\sprTankTreadIllum</sprite>
+      <sprite>sprites\sprTankTreadPart</sprite>
     </sprites>
+    <sprites name="Projectiles">
+      <sprite>sprites\sprTankShellHot</sprite>
+      <sprite>sprites\sprTankShell</sprite>
+    </sprites>
+    <sprite>sprites\collisionbox</sprite>
     <sprite>sprites\sprGodrays</sprite>
     <sprite>sprites\sprBarrelSmoke</sprite>
     <sprite>sprites\sprPixel</sprite>
-    <sprite>sprites\sprTankTreadPart</sprite>
+    <sprite>sprites\sprICEDUMMY</sprite>
+    <sprite>sprites\sprDebris</sprite>
   </sprites>
   <backgrounds name="background">
     <backgrounds name="Forest Backgrounds">
@@ -37,20 +43,27 @@
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
+    <scripts name="Tank treads">
+      <script>scripts\tread_create.gml</script>
+      <script>scripts\tread_part_add.gml</script>
+      <script>scripts\treads_move.gml</script>
+      <script>scripts\treads_offset.gml</script>
+    </scripts>
     <script>scripts\create_cam.gml</script>
     <script>scripts\lightsource_calculate.gml</script>
-    <script>scripts\tread_create.gml</script>
-    <script>scripts\tread_part_add.gml</script>
-    <script>scripts\treads_move.gml</script>
-    <script>scripts\treads_offset.gml</script>
   </scripts>
   <objects name="objects">
+    <objects name="Projectiles">
+      <object>objects\TankShell</object>
+    </objects>
     <object>objects\World</object>
     <object>objects\objPlayer</object>
     <object>objects\objWall</object>
     <object>objects\camera</object>
     <object>objects\LightSource</object>
     <object>objects\Effect</object>
+    <object>objects\destroyable</object>
+    <object>objects\ICEDUMMY</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>

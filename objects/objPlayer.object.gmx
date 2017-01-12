@@ -75,11 +75,14 @@ if(keyboard_check_pressed(ord('R'))) { game_restart(); }
 
 if(mouse_check_button_pressed(mb_left))
 {
-    with(instance_create(mouse_x, mouse_y, LightSource))
+    /*with(instance_create(mouse_x, mouse_y, LightSource))
     {
         // color n radius
         color = make_color_hsv(current_time/20, 255, 255);
         depth = other.depth-1;
+    }*/
+    with(instance_create(mouse_x, mouse_y, ICEDUMMY))
+    {
     }
 }
 
@@ -129,12 +132,18 @@ if(keyFire)
         depth = other.depth-1;
         image_xscale = other.scale;
         //image_speed = 0.5;
+        
         with(instance_create(x, y, LightSource))
         {
             intensity = 5;
             intensityLinearScale = -1;
             color = make_color_hsv(25, 255, 255);
         }
+    }
+    with(instance_create(x+80*scale, y-20, TankShell))
+    {
+        hspeed = 16*other.scale;
+        vspeed = -2;
     }
 }
 
@@ -183,7 +192,15 @@ if(surface_exists(global.surTankTreads))
     {
         draw_set_color(make_color_hsv((255/tread_parts)*i, 255, 255));
         //draw_line(tread_partX[i], tread_partY[i], tread_partX[i]+lengthdir_x(tread_l, -tread_partAngle[i]), tread_partY[i]+lengthdir_y(tread_l, -tread_partAngle[i]));
-        draw_sprite(sprTankTreadPart, round(tread_partAngle[i]/(360/sprite_get_number(sprTankTreadPart))), tread_partX[i], tread_partY[i]);
+        if(tread_partAngle[i] != 0
+        &amp;&amp; tread_partAngle[i] != 180)
+        {
+            draw_sprite(sprTankTreadPart, round(tread_partAngle[i]/(360/sprite_get_number(sprTankTreadPart)))+1, tread_partX[i], tread_partY[i]);
+        }
+        else
+        {
+            draw_sprite(sprTankTreadPart, round(tread_partAngle[i]/(360/sprite_get_number(sprTankTreadPart))), tread_partX[i], tread_partY[i]);
+        }
     }
     draw_set_color(c_white);
     
@@ -194,7 +211,15 @@ if(surface_exists(global.surTankTreads))
         if(tread_partY[i] &gt;= tread_y-tread_r/2)
         {
             //draw_sprite(sprTankTreadPart, round(tread_partAngle[i]/(360/sprite_get_number(sprTankTreadPart))), tread_partX[i]-view_xview, tread_partY[i]-view_yview);
-            draw_sprite(sprTankTreadPart, round(tread_partAngle[i]/(360/sprite_get_number(sprTankTreadPart))), tread_partX[i], tread_partY[i]-view_yview);
+            if(tread_partAngle[i] != 0
+            &amp;&amp; tread_partAngle[i] != 180)
+            {
+                draw_sprite(sprTankTreadPart, round(tread_partAngle[i]/(360/sprite_get_number(sprTankTreadPart)))+1, tread_partX[i], tread_partY[i]-view_yview);
+            }
+            else
+            {
+                draw_sprite(sprTankTreadPart, round(tread_partAngle[i]/(360/sprite_get_number(sprTankTreadPart))), tread_partX[i], tread_partY[i]-view_yview);
+            }
         }
     }
     surface_reset_target();

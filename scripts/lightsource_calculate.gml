@@ -33,8 +33,11 @@ if(surface_exists(global.surTemporaryLightSource)
                     var dist = abs(1-point_distance(x, y, other.x, other.y)/other.radius);
                     
                     //draw_rectangle(0, 0, window_get_width(), window_get_height(), 0);
-                   
+                    
+                    //draw_sprite_ext(sprTankTread, frame, x + (5 * scale), y + (sprite_get_height(sprTankTread) / 1.6), image_xscale, image_yscale, image_angle, c_black, 1); // shadow
+                    //draw_sprite_ext(sprTankHeadpiece, frame, x + (10 * scale), y - (sprite_get_height(sprTankHeadpiece) / 1.4) + add, scale, 1, add + rot, c_black, 1); // shadow
                     draw_sprite_ext(sprTankTreadIllum, _illumRot, (x - view_xview) + (5 * objPlayer.scale), y + (sprite_get_height(sprTankTread) / 1.4) - view_yview, image_xscale, image_yscale, image_angle, other.color, dist*other.intensity);
+                    draw_sprite_ext(sprTankBody, frame, x + add + lengthdir_x(point_distance(x, y, other.x, other.y)/4, point_direction(x, y, other.x, other.y)+180) - view_xview, y + lengthdir_y(point_distance(x, y, other.x, other.y)/4, point_direction(x, y, other.x, other.y)+180) - view_yview, scale, 1, add + rot, c_black, 1); // shadow
                     draw_sprite_ext(sprTankHeadpieceIllum, _illumRot, (x - view_xview) + (10 * objPlayer.scale), y - (sprite_get_height(sprTankHeadpiece) / 1.4) + add - view_yview, scale, 1, add + rot, other.color, dist*other.intensity);
                     draw_sprite_ext(sprTankBodyIllum, _illumRot, x + add - view_xview, y - view_yview, scale, 1, add + rot, other.color, dist*other.intensity);
                     
