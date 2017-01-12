@@ -20,6 +20,7 @@
     <sprite>sprites\sprGodrays</sprite>
     <sprite>sprites\sprBarrelSmoke</sprite>
     <sprite>sprites\sprPixel</sprite>
+    <sprite>sprites\sprTankTreadPart</sprite>
   </sprites>
   <backgrounds name="background">
     <backgrounds name="Forest Backgrounds">
@@ -38,6 +39,10 @@
   <scripts name="scripts">
     <script>scripts\create_cam.gml</script>
     <script>scripts\lightsource_calculate.gml</script>
+    <script>scripts\tread_create.gml</script>
+    <script>scripts\tread_part_add.gml</script>
+    <script>scripts\treads_move.gml</script>
+    <script>scripts\treads_offset.gml</script>
   </scripts>
   <objects name="objects">
     <object>objects\World</object>

@@ -29,6 +29,7 @@
 height = window_get_height();
 global.surTemporaryLightSource = surface_create(width, height);
 global.surLightSources = surface_create(width, height);
+global.surTankTreads = surface_create(width, height);
 
 </string>
           </argument>
@@ -57,13 +58,18 @@ height = window_get_height();
 
 if(!surface_exists(global.surTemporaryLightSource))
 global.surTemporaryLightSource = surface_create(width, height);
-else
-surface_resize(global.surTemporaryLightSource, width, height);
+//else
+//surface_resize(global.surTemporaryLightSource, width, height);
 
 if(!surface_exists(global.surLightSources))
 global.surLightSources = surface_create(width, height);
-else
-surface_resize(global.surLightSources, width, height);
+//else
+//surface_resize(global.surLightSources, width, height);
+
+if(!surface_exists(global.surTankTreads))
+global.surTankTreads = surface_create(width, height);
+//else
+//surface_resize(global.surTankTreads, width, height);
 
 // reset light sources
 surface_set_target(global.surLightSources);
