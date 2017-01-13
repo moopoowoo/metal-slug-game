@@ -53,8 +53,8 @@ global.surTankTreads = surface_create(width, height);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>width = window_get_width();
-height = window_get_height();
+            <string>//width = window_get_width();
+//height = window_get_height();
 
 if(!surface_exists(global.surTemporaryLightSource))
 global.surTemporaryLightSource = surface_create(width, height);
