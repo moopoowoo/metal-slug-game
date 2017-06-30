@@ -3,12 +3,12 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>-999999</depth>
+  <depth>0</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
-    <event eventtype="0" enumb="0">
+    <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -25,88 +25,13 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>width = window_get_width();
-height = window_get_height();
-global.surTemporaryLightSource = surface_create(width, height);
-global.surLightSources = surface_create(width, height);
-global.surTankTreads = surface_create(width, height);
+            <string>rotAdd=keyboard_check_pressed(ord("E"));
+rotSub=-keyboard_check_pressed(ord("Q"));
 
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="3" enumb="1">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>//width = window_get_width();
-//height = window_get_height();
-
-if(!surface_exists(global.surTemporaryLightSource))
-global.surTemporaryLightSource = surface_create(width, height);
-//else
-//surface_resize(global.surTemporaryLightSource, width, height);
-
-if(!surface_exists(global.surLightSources))
-global.surLightSources = surface_create(width, height);
-//else
-//surface_resize(global.surLightSources, width, height);
-
-if(!surface_exists(global.surTankTreads))
-global.surTankTreads = surface_create(width, height);
-//else
-//surface_resize(global.surTankTreads, width, height);
-
-// reset light sources
-surface_set_target(global.surLightSources);
-//draw_clear_alpha(c_black, 0);
-draw_set_color(c_black);
-draw_rectangle(0, 0, view_wview, view_hview, 0);
-draw_set_color(c_white);
-surface_reset_target();
-
-lightsource_calculate();
-
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="8" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>draw_set_blend_mode(bm_add);
-draw_surface(global.surLightSources, view_xview, view_yview);
-draw_set_blend_mode(bm_normal);
-
+keyUp=-keyboard_check(ord("W"));
+keyLeft=-keyboard_check(ord("A"));
+keyDown=keyboard_check(ord("S"));
+keyRight=keyboard_check(ord("D"));
 </string>
           </argument>
         </arguments>

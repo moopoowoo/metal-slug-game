@@ -6,27 +6,15 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
-    <sprites name="Tanks">
-      <sprite>sprites\tanksheet</sprite>
-      <sprite>sprites\sprTankHitbox</sprite>
-      <sprite>sprites\sprTankHeadpiece</sprite>
-      <sprite>sprites\sprTankHeadpieceIllum</sprite>
-      <sprite>sprites\sprTankBody</sprite>
-      <sprite>sprites\sprTankBodyIllum</sprite>
-      <sprite>sprites\sprTankTread</sprite>
-      <sprite>sprites\sprTankTreadIllum</sprite>
-      <sprite>sprites\sprTankTreadPart</sprite>
+    <sprites name="Player">
+      <sprite>sprites\sprPlayer</sprite>
+      <sprites name="Tools">
+        <sprite>sprites\sprPlayerCannon</sprite>
+        <sprite>sprites\sprPlayerDrill</sprite>
+        <sprite>sprites\sprPlayerDualgun</sprite>
+        <sprite>sprites\sprPlayerLaser</sprite>
+      </sprites>
     </sprites>
-    <sprites name="Projectiles">
-      <sprite>sprites\sprTankShellHot</sprite>
-      <sprite>sprites\sprTankShell</sprite>
-    </sprites>
-    <sprite>sprites\collisionbox</sprite>
-    <sprite>sprites\sprGodrays</sprite>
-    <sprite>sprites\sprBarrelSmoke</sprite>
-    <sprite>sprites\sprPixel</sprite>
-    <sprite>sprites\sprICEDUMMY</sprite>
-    <sprite>sprites\sprDebris</sprite>
   </sprites>
   <backgrounds name="background">
     <backgrounds name="Forest Backgrounds">
@@ -42,31 +30,21 @@
     </backgrounds>
   </backgrounds>
   <paths name="paths"/>
-  <scripts name="scripts">
-    <scripts name="Tank treads">
-      <script>scripts\tread_create.gml</script>
-      <script>scripts\tread_part_add.gml</script>
-      <script>scripts\treads_move.gml</script>
-      <script>scripts\treads_offset.gml</script>
-    </scripts>
-    <script>scripts\create_cam.gml</script>
-    <script>scripts\lightsource_calculate.gml</script>
-  </scripts>
+  <scripts name="scripts"/>
   <objects name="objects">
-    <objects name="Projectiles">
-      <object>objects\TankShell</object>
+    <objects name="Player">
+      <object>objects\objPlayer</object>
+      <objects name="Tools">
+        <object>objects\objPlayerCannon</object>
+        <object>objects\objPlayerDrill</object>
+        <object>objects\objPlayerDualgun</object>
+        <object>objects\objPlayerLaser</object>
+      </objects>
     </objects>
     <object>objects\World</object>
-    <object>objects\objPlayer</object>
-    <object>objects\objWall</object>
-    <object>objects\camera</object>
-    <object>objects\LightSource</object>
-    <object>objects\Effect</object>
-    <object>objects\destroyable</object>
-    <object>objects\ICEDUMMY</object>
   </objects>
   <rooms name="rooms">
-    <room>rooms\room0</room>
+    <room>rooms\room1</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>
