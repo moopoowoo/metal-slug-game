@@ -30,16 +30,9 @@
     </backgrounds>
   </backgrounds>
   <paths name="paths"/>
-  <scripts name="scripts"/>
   <objects name="objects">
     <objects name="Player">
       <object>objects\objPlayer</object>
-      <objects name="Tools">
-        <object>objects\objPlayerCannon</object>
-        <object>objects\objPlayerDrill</object>
-        <object>objects\objPlayerDualgun</object>
-        <object>objects\objPlayerLaser</object>
-      </objects>
     </objects>
     <object>objects\World</object>
   </objects>
