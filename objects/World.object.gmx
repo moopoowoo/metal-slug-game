@@ -8,6 +8,42 @@
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
+    <event eventtype="0" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>// controls
+keyUp = ord("W");
+keyLeft = ord("A");
+keyDown = ord("S");
+keyRight = ord("D");
+keyRotCW = ord("E");
+keyRotCCW = ord("Q");
+
+// world
+World.surTerrain = noone;
+width = room_width;
+height = room_height*2;
+world_generate(width, height);
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
@@ -25,13 +61,53 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>rotAdd=keyboard_check_pressed(ord("E"));
-rotSub=-keyboard_check_pressed(ord("Q"));
+            <string>// DEBUG
+if(keyboard_check_pressed(ord('R'))) game_restart();
 
-keyUp=-keyboard_check(ord("W"));
-keyLeft=-keyboard_check(ord("A"));
-keyDown=keyboard_check(ord("S"));
-keyRight=keyboard_check(ord("D"));
+if(mouse_check_button(mb_left))
+{
+    world_carve_circle(mouse_x, mouse_y, 20);
+}
+
+if(instance_exists(Player))
+{
+    view_yview = clamp(Player.y-view_hview/2, 0, height-view_hview);
+}
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_surface_ext(World.surTerrain, 0, 0, 1, 1, 0, make_color_hsv(0, 0, 20), 1);
+//draw_surface(World.surTerrain, 0, 0);
+draw_set_color(c_black);
+draw_text(view_xview, view_yview, string(fps) + "fps");
+draw_set_color(c_white);
+
+// draw lights
+with(Player)
+{
+    light_cast(x, y, lightColor, lightRadius);
+}
+
 </string>
           </argument>
         </arguments>
