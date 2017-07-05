@@ -96,25 +96,17 @@ if(instance_exists(Player))
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//draw_surface_ext(World.surTerrain, 0, 0, 1, 1, 0, make_color_hsv(0, 0, 20), 1);
-draw_surface(World.surTerrain, 0, 0);
+            <string>draw_surface_ext(World.surTerrain, 0, 0, 1, 1, 0, make_color_hsv(0, 0, 20), 1);
+//draw_surface(World.surTerrain, 0, 0);
 draw_set_color(c_black);
 draw_text(view_xview, view_yview, string(fps) + "fps");
 draw_set_color(c_white);
-
-_surShadows = surface_create(view_wview, view_hview);
-surface_set_target(_surShadows);
-draw_clear_alpha(c_black, 0);
-surface_reset_target();
 
 // draw lights
 with(Player)
 {
     light_cast(x, y, lightColor, lightRadius);
 }
-
-//draw_surface(_surShadows, 0, 0);
-surface_free(_surShadows);
 
 </string>
           </argument>

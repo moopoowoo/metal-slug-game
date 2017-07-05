@@ -75,7 +75,7 @@ grav = 0.4;
 
 // lighting
 lightColor = make_color_rgb(255/3, 150/3, 50/3);
-lightRadius = 256;
+lightRadius = 128;
 
 </string>
           </argument>
@@ -152,6 +152,7 @@ if(_legsActive)
 }
 
 // check for collisions
+var _collided = 0;
 for(var i = x+hBoxXOffset; i &lt; x+hBoxXOffset+hBoxWidth; i += 1)
 {
     for(var j = y+hBoxYOffset; j &lt; y+hBoxYOffset+hBoxHeight; j += 1)
@@ -160,13 +161,36 @@ for(var i = x+hBoxXOffset; i &lt; x+hBoxXOffset+hBoxWidth; i += 1)
         || i+xVel &lt; 0
         || i+xVel &gt;= World.width)
         {
+            if(xVel &lt; 2)
             xVel *= -0.5;
+            else
+            {
+                xVel *= 0.5;
+                _collided += 1;
+            }
         }
         if(World.terrain[clamp(i, 0, World.width-1), clamp(j+yVel, 0, World.height-1)] != 0 // air
         || j+yVel &lt; 0
         || j+yVel &gt;= World.height)
         {
+            if(yVel &lt; 2)
             yVel *= -0.5;
+            else
+            {
+                yVel *= 0.5;
+                _collided += 1;
+            }
+        }
+    }
+}
+
+if(_collided)
+{
+    for(var i = clamp(x-hBoxWidth/2-abs(xVel), 0, World.width-1); i &lt; clamp(x+hBoxWidth/2+abs(xVel), 0, World.width-1); i += 1)
+    {
+        for(var j = clamp(y-hBoxHeight/2-abs(yVel), 0, World.height-1); j &lt; clamp(y+hBoxHeight/2+abs(yVel), 0, World.height-1); j += 1)
+        {
+            world_carve_point(i, j);
         }
     }
 }

@@ -14,7 +14,7 @@ draw_vertex(_radius, _radius);
 for(var i = 0; i <= 360; i += 3)
 {
     var _l = 8;
-    while(World.terrain[clamp(_x+lengthdir_x(_l, i), 0, World.width), clamp(_y+lengthdir_y(_l, i), 0, World.height)] == 0
+    while(World.terrain[clamp(_x+lengthdir_x(_l, i), 0, World.width-1), clamp(_y+lengthdir_y(_l, i), 0, World.height-1)] == 0
     && _l < _radius)
     _l += 1;
     _l += 8;
@@ -38,10 +38,6 @@ surface_reset_target();
 
 draw_set_blend_mode(bm_add);
 draw_surface(_sur, _x-_radius, _y-_radius);
-
-surface_set_target(World._surShadows);
-draw_surface(_sur, _x-_radius, _y-_radius);
-surface_reset_target();
 
 draw_set_blend_mode(bm_normal);
 surface_free(_sur);

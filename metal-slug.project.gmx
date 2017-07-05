@@ -20,13 +20,12 @@
   <paths name="paths"/>
   <scripts name="scripts">
     <script>scripts\world_generate.gml</script>
+    <script>scripts\world_carve_point.gml</script>
     <script>scripts\world_carve_circle.gml</script>
     <script>scripts\light_cast.gml</script>
   </scripts>
   <objects name="objects">
-    <objects name="Player">
-      <object>objects\Player</object>
-    </objects>
+    <object>objects\Player</object>
     <object>objects\World</object>
   </objects>
   <rooms name="rooms">
