@@ -25,16 +25,11 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>// set tool properties
-
-tool[0,0]=sprPlayerCannon; // set the sprite of a tool
-tool[1,0]=sprPlayerDrill;
-tool[2,0]=sprPlayerDualgun;
-tool[3,0]=sprPlayerLaser;
+            <string>tool_load();
 
 // set what tools the player has active
 
-activeTool[0,0]=0; // this sets the players first active tool slot to 0 --- this means that the players first active tool slot will contain the tool in the 'tool' array that has the first value of 0
+activeTool[0,0]=0; // this sets the players first active tool slot to 0 --- this means that the players first active tool slot will contain whatever tool in the tool array that has a value of 0
 activeTool[0,1]=0; // this sets the active tools rotation
 
 activeTool[1,0]=1;
@@ -77,6 +72,12 @@ grav = 0.4;
 lightColor = make_color_rgb(255/3, 150/3, 50/3);
 lightRadius = 128;
 
+// temporary particle stuff used for testing
+sys=part_system_create();
+part_system_depth(sys,depth+1);
+part=part_type_create();
+part_type_sprite(part,sprTestcircle,0,0,0);
+part_type_life(part,30,30);
 </string>
           </argument>
         </arguments>
@@ -99,10 +100,15 @@ lightRadius = 128;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var i=0;
+            <string>var i=0, _offset = 0, _rot0=rotation+1, _rot1=rotation+2, _rot2=rotation+3;
+
+if(_rot0 &gt; 3) _rot0 -= 4;
+if(_rot1 &gt; 3) _rot1 -= 4;
+if(_rot2 &gt; 3) _rot2 -= 4;
 
 rotation += keyboard_check_pressed(World.keyRotCCW) - keyboard_check_pressed(World.keyRotCW);
-drawRot=lerp(drawRot,rotation,.1);
+if rotation&lt;0 rotation=3 else if rotation&gt;3 rotation=0;
+drawRot=lerp(drawRot,rotation,.1); // fancy lerp effect for rotating the tools
 
 // move around
 var _accel = accel;
@@ -277,6 +283,13 @@ for(var i = 0; i &lt; 4; i += 1)
     }
 }
 
+
+// use tools
+
+if (keyboard_check(World.keyToolRight)) tool_use(rotation,0);
+if (keyboard_check(World.keyToolUp)) tool_use(activeTool[_rot2,0],90);
+if (keyboard_check(World.keyToolLeft)) tool_use(activeTool[_rot1,0],180);
+if (keyboard_check(World.keyToolDown)) tool_use(activeTool[_rot0,0],270);
 </string>
           </argument>
         </arguments>
@@ -334,6 +347,8 @@ draw_rectangle(x+hBoxXOffset, y+hBoxYOffset, x+hBoxXOffset+hBoxWidth, y+hBoxYOff
 draw_rectangle(x+hBoxXOffset+xVel, y+hBoxYOffset+yVel, x+hBoxXOffset+hBoxWidth+xVel, y+hBoxYOffset+hBoxHeight+yVel, 1);
 
 draw_set_color(c_white);
+
+if keyboard_check(vk_f1) draw_text(x+32,y,string(rotation)+" / "+string(drawRot));
 
 </string>
           </argument>
