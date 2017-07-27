@@ -32,6 +32,10 @@ keyDown = ord("S");
 keyRight = ord("D");
 keyRotCW = ord("E");
 keyRotCCW = ord("Q");
+keyToolUp = vk_up;
+keyToolLeft = vk_left;
+keyToolDown = vk_down;
+keyToolRight = vk_right;
 
 // world
 World.surTerrain = noone;

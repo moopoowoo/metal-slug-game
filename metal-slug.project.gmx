@@ -15,6 +15,7 @@
         <sprite>sprites\sprPlayerLaser</sprite>
       </sprites>
     </sprites>
+    <sprite>sprites\sprTestcircle</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -23,6 +24,8 @@
     <script>scripts\world_carve_point.gml</script>
     <script>scripts\world_carve_circle.gml</script>
     <script>scripts\light_cast.gml</script>
+    <script>scripts\tool_load.gml</script>
+    <script>scripts\tool_use.gml</script>
   </scripts>
   <objects name="objects">
     <object>objects\Player</object>
