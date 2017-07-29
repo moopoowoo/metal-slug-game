@@ -26,6 +26,7 @@
     <script>scripts\light_cast.gml</script>
     <script>scripts\tool_load.gml</script>
     <script>scripts\tool_use.gml</script>
+    <script>scripts\particle_spawn.gml</script>
   </scripts>
   <objects name="objects">
     <object>objects\Player</object>

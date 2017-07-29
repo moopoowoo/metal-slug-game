@@ -16,7 +16,7 @@ for(var i = 0; i <= 360; i += 3)
     var _l = 8;
     while(World.terrain[clamp(_x+lengthdir_x(_l, i), 0, World.width-1), clamp(_y+lengthdir_y(_l, i), 0, World.height-1)] == 0
     && _l < _radius)
-    _l += 1;
+    _l += 2;
     _l += 8;
     
     draw_vertex(_radius+lengthdir_x(_l, i), _radius+lengthdir_y(_l, i));

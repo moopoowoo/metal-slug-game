@@ -15,8 +15,10 @@ for(var i = 0; i < _width; i += 1)
     for(var j = 0; j < _height; j += 1)
     {
         World.terrain[i, j] = 1; // dirt
-        draw_point_color(i, j,
-        make_color_hsv(25, 125+random(100), 125+random(100)));
+        World.terrain_durability[i, j] = 30;
+        var _col = make_color_hsv(25, 125+random(100), 125+random(100));
+        World.terrain_color[i, j] = _col;
+        draw_point_color(i, j, _col);
     }
 }
 

@@ -45,7 +45,7 @@ rotation=0; // rotation determines the order of the tools
 drawRot=0;
 
 // make sure it doesn't get stuck when spawning
-world_carve_circle(x, y, 48, 0);
+world_carve_circle(x, y, 48, 300);
 
 // prepare legs
 for(var i = 0; i &lt; 4; i += 1)
@@ -196,7 +196,7 @@ if(_collided)
     {
         for(var j = clamp(y-hBoxHeight/2-abs(yVel), 0, World.height-1); j &lt; clamp(y+hBoxHeight/2+abs(yVel), 0, World.height-1); j += 1)
         {
-            world_carve_point(i, j);
+            world_carve_point(i, j, 30);
         }
     }
 }

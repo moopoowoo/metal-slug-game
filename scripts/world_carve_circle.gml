@@ -1,7 +1,8 @@
-/// world_carve_circle(x, y, radius);
+/// world_carve_circle(x, y, radius, strength);
 var _x = argument[0];
 var _y = argument[1];
 var _radius = argument[2];
+var _strength = argument[3];
 
 // check world_generate for terrain IDs
 
@@ -13,10 +14,16 @@ for(var i = clamp(_x-_radius, 0, World.width); i < clamp(_x+_radius, 0, World.wi
     {
         if(point_distance(i, j, _x, _y) <= _radius)
         {
-            World.terrain[i, j] = 0; // air
-            draw_set_blend_mode(bm_subtract); // delete mode
-            draw_point_color(i, j, c_black);
-            draw_set_blend_mode(bm_normal);
+            World.terrain_durability[_x, _y] -= _strength;
+            if(World.terrain_durability[_x, _y] <= 0)
+            {
+                World.terrain_durability[_x, _y] = 0;
+                World.terrain[i, j] = 0; // air
+                
+                draw_set_blend_mode(bm_subtract); // delete mode
+                draw_point_color(i, j, c_black);
+                draw_set_blend_mode(bm_normal);
+            }
         }
     }
 }

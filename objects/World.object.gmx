@@ -43,6 +43,21 @@ width = room_width;
 height = room_height*2;
 world_generate(width, height);
 
+// particles
+World.maxParticles = 320;
+World.particles_gravity = 0.25;
+for(var i = 0; i &lt; World.maxParticles; i += 1)
+{
+    World.particle_x[i] = 0;
+    World.particle_y[i] = 0;
+    //World.particle_dir[i] = 0;
+    //World.particle_spd[i] = 0;
+    World.particle_hspd[i] = 0;
+    World.particle_vspd[i] = 0;
+    World.particle_col[i] = 0;
+    World.particle_vis[i] = 0;
+}
+
 </string>
           </argument>
         </arguments>
@@ -70,12 +85,63 @@ if(keyboard_check_pressed(ord('R'))) game_restart();
 
 if(mouse_check_button(mb_left))
 {
-    world_carve_circle(mouse_x, mouse_y, 20);
+    world_carve_circle(mouse_x, mouse_y, 20, 1);
+}
+if(mouse_check_button(mb_right))
+{
+    // particles
+    var _dir = random(360);
+    var _hspd = lengthdir_x(random(4), _dir);
+    var _vspd = lengthdir_y(random(4), _dir);
+    var _col = make_color_hsv(random(255), 255, 255);
+    particle_spawn(mouse_x, mouse_y, _hspd, _vspd, _col);
 }
 
 if(instance_exists(Player))
 {
     view_yview = clamp(Player.y-view_hview/2, 0, height-view_hview);
+}
+
+// particle simulation
+for(var i = 0; i &lt; World.maxParticles; i += 1)
+{
+    if(!World.particle_vis[i]) break;
+    else
+    {
+        if(World.terrain[clamp(World.particle_x[i], 0, World.width-1), clamp(World.particle_y[i], 0, World.height-1)])
+        {
+            World.particle_vis[i] = 0;
+            
+            for(var j = i+1; j &lt; World.maxParticles; j += 1)
+            {
+                // replace previous particle with next
+                World.particle_x[j-1] = World.particle_x[j];
+                World.particle_y[j-1] = World.particle_y[j];
+                //World.particle_dir[j-1] = World.particle_dir[j];
+                //World.particle_spd[j-1] = World.particle_spd[j];
+                World.particle_hspd[j-1] = World.particle_hspd[j];
+                World.particle_vspd[j-1] = World.particle_vspd[j];
+                World.particle_col[j-1] = World.particle_col[j];
+                World.particle_vis[j-1] = World.particle_vis[j];
+                
+                // reset next
+                World.particle_x[j] = 0;
+                World.particle_y[j] = 0;
+                //World.particle_dir[j] = 0;
+                //World.particle_spd[j] = 0;
+                World.particle_hspd[j] = 0;
+                World.particle_vspd[j] = 0;
+                World.particle_col[j] = 0;
+                World.particle_vis[j] = 0;
+            }
+        }
+        else
+        {
+            World.particle_x[i] += World.particle_hspd[i];
+            World.particle_y[i] += World.particle_vspd[i];
+            World.particle_vspd[i] += World.particles_gravity;
+        }
+    }
 }
 
 </string>
@@ -100,17 +166,35 @@ if(instance_exists(Player))
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//draw_surface_ext(World.surTerrain, 0, 0, 1, 1, 0, make_color_hsv(0, 0, 20), 1);
-draw_surface(World.surTerrain, 0, 0);
-draw_set_color(c_black);
+            <string>draw_surface_ext(World.surTerrain, 0, 0, 1, 1, 0, make_color_hsv(0, 0, 50), 1);
+//draw_surface(World.surTerrain, 0, 0);
+draw_set_color(c_white);
 draw_text(view_xview, view_yview, string(fps) + "fps");
+
+// particles
+for(var i = 0; i &lt; World.maxParticles; i += 1)
+{
+    if(!World.particle_vis[i])
+    {
+        draw_text(view_xview, view_yview+16, string(i) + " particles");
+        break;
+    }
+    else
+    {
+        draw_set_color(World.particle_col[i]);
+        //draw_point(World.particle_x[i], World.particle_y[i]);
+        draw_line_width(World.particle_x[i], World.particle_y[i],
+        World.particle_x[i]-World.particle_hspd[i], World.particle_y[i]-World.particle_vspd[i],
+        1.1);
+    }
+}
 draw_set_color(c_white);
 
 // draw lights
-/*with(Player)
+with(Player)
 {
     light_cast(x, y, lightColor, lightRadius);
-}*/
+}
 
 </string>
           </argument>
