@@ -2,7 +2,7 @@
 <object>
   <spriteName>sprPlayer</spriteName>
   <solid>0</solid>
-  <visible>-1</visible>
+  <visible>0</visible>
   <depth>0</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
@@ -68,9 +68,8 @@ accel = 0.8;
 drag = 1.1;
 grav = 0.4;
 
-// lighting
-lightColor = make_color_rgb(255/3, 150/3, 50/3);
-lightRadius = 128;
+// reloads
+cannonReload = 0;
 
 // temporary particle stuff used for testing
 sys=part_system_create();
@@ -159,9 +158,9 @@ if(_legsActive)
 
 // check for collisions
 var _collided = 0;
-for(var i = x+hBoxXOffset; i &lt; x+hBoxXOffset+hBoxWidth; i += 1)
+for(var i = x+hBoxXOffset; i &lt; x+hBoxXOffset+hBoxWidth; i += 4)
 {
-    for(var j = y+hBoxYOffset; j &lt; y+hBoxYOffset+hBoxHeight; j += 1)
+    for(var j = y+hBoxYOffset; j &lt; y+hBoxYOffset+hBoxHeight; j += 4)
     {
         if(World.terrain[clamp(i+xVel, 0, World.width-1), clamp(j, 0, World.height-1)] != 0 // air
         || i+xVel &lt; 0
@@ -244,11 +243,11 @@ for(var i = 0; i &lt; 4; i += 1)
         legActive[i] = 0;
         var _hooked = 0;
         
-        for(var l = 1; l &lt; 48; l += 1)
+        for(var l = 1; l &lt; 48; l += 4)
         {
             var _dToggle = 1;
             
-            for(var d = 0; d &lt; 40; d += 1)
+            for(var d = 0; d &lt; 40; d += 4)
             {
                 if(World.terrain[clamp(x+lengthdir_x(l, i*90+45+d), 0, World.width-1), clamp(y+lengthdir_y(l, i*90+45+d), 0, World.height-1)] != 0 // air
                 || x+lengthdir_x(l, i*90+45) &lt; 0
@@ -283,6 +282,23 @@ for(var i = 0; i &lt; 4; i += 1)
     }
 }
 
+// lighting
+with(instance_create(x, y, Light)) // amb
+{
+    lightColor = make_color_rgb(10, 5, 10);
+    lightRadius = 128;
+    lightOvershoot = 24;
+    lightFadeSpeed = 1;
+    lightRadiusSteps = 8;
+    lightAngleSteps = 8;
+}
+with(instance_create(x, y, Light)) // eye
+{
+    lightColor = make_color_rgb(255, 25, 25);
+    lightRadius = 12;
+    lightOvershoot = 2;
+    lightFadeSpeed = 1;
+}
 
 // use tools
 
@@ -290,65 +306,9 @@ if (keyboard_check(World.keyToolRight)) tool_use(rotation,0);
 if (keyboard_check(World.keyToolUp)) tool_use(activeTool[_rot2,0],90);
 if (keyboard_check(World.keyToolLeft)) tool_use(activeTool[_rot1,0],180);
 if (keyboard_check(World.keyToolDown)) tool_use(activeTool[_rot0,0],270);
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="8" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>// draw tools
-var i;
 
-for (i=0;i&lt;=3;i++) {
-    draw_sprite_ext(
-        tool[activeTool[i,0],0],
-        0,
-        x+lengthdir_x(12,(activeTool[i,1]+drawRot)*90),
-        y+lengthdir_y(12,(activeTool[i,1]+drawRot)*90),
-        1,
-        1,
-        (activeTool[i,1]+drawRot)*90,
-        c_white,
-        1
-    )
-}
-
-// draw legs
-for(var i = 0; i &lt; 4; i += 1)
-{
-    if(legActive[i])
-    draw_line(x, y, legX[i], legY[i]);
-}
-
-// draw tank
-draw_self();
-
-
-// DEBUG
-// hitbox
-draw_set_color(c_red);
-draw_rectangle(x+hBoxXOffset, y+hBoxYOffset, x+hBoxXOffset+hBoxWidth, y+hBoxYOffset+hBoxHeight, 1);
-draw_rectangle(x+hBoxXOffset+xVel, y+hBoxYOffset+yVel, x+hBoxXOffset+hBoxWidth+xVel, y+hBoxYOffset+hBoxHeight+yVel, 1);
-
-draw_set_color(c_white);
-
-if keyboard_check(vk_f1) draw_text(x+32,y,string(rotation)+" / "+string(drawRot));
+// reloads
+cannonReload -= 1;
 
 </string>
           </argument>

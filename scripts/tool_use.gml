@@ -4,13 +4,51 @@ toolid=argument0;
 tooldir=argument1;
 
 switch toolid {
-    case 0:
+    case 0: // cannon
     {
+        if(cannonReload <= 0)
+        {
+            cannonReload = 30;
+            
+            with(instance_create(x, y, Cannon))
+            {
+                speed = 8;
+                direction = tooldir;
+                gravity = 0.25;
+            }
+        }
         
         break;
     }
-    case 1:
+    case 1: // laser
     {
+        var _length = 8;
+        var _maxLength = 320;
+        
+        while(_length < _maxLength)
+        {
+            var _x = clamp(x+lengthdir_x(_length, tooldir), 0, World.width-1);
+            var _y = clamp(y+lengthdir_y(_length, tooldir), 0, World.height-1);
+            
+            if(World.terrain[_x, _y] != 0)
+            {
+                world_carve_circle(_x, _y, 6, 5);
+                
+                // lighting
+                with(instance_create(_x, _y, Light))
+                {
+                    lightColor = make_color_rgb(0, 125, 255);
+                    lightRadius = 32;
+                    lightOvershoot = 8;
+                    lightFadeSpeed = 1/8;
+                    lightRadiusSpeed = 2;
+                }
+                
+                break;
+            }
+            
+            _length += 4;
+        }
     
         break;
     }
@@ -38,25 +76,12 @@ switch toolid {
                     var _dir = random(360);
                     var _hspd = lengthdir_x(random(4), _dir);
                     var _vspd = lengthdir_y(random(4), _dir);
-                    var _col = make_color_hsv(random(255), 255, 255);
-                    
-                    var _touchingAir = -1;
-                    for(var j = 0; j < 4; j += 1)
-                    {
-                        if(World.terrain[clamp(_x+lengthdir_x(2, j*90), 0, World.width-1),
-                                         clamp(_y+lengthdir_y(2, j*90), 0, World.height-1)] == 0)
-                        {
-                            _touchingAir = j;
-                        }
-                    }
-                    if(_touchingAir > -1
-                    && random(World.terrain_durability[_x, _y]) <= 0.1)
-                    /*particle_spawn(_x, _y, lengthdir_x(random(2), tooldir+180)+lengthdir_x(2, _touchingAir*360),
-                                           lengthdir_y(random(2), tooldir+180)+lengthdir_y(2, _touchingAir*360), World.terrain_color[_x, _y]);*/
+                
+                    if(random(World.terrain_durability[_x, _y]) <= 0.1)
                     particle_spawn(_x+lengthdir_x(1, point_direction(_x, _y, x, y)),
                                    _y+lengthdir_y(1, point_direction(_x, _y, x, y)),
-                    lengthdir_x(random(2), tooldir+180),
-                    lengthdir_y(random(2), tooldir+180),
+                    lengthdir_x(random(_hspd), _dir),
+                    lengthdir_y(random(_vspd), _dir),
                     merge_color(World.terrain_color[_x, _y], c_black, 0.25));
                     
                     // mine

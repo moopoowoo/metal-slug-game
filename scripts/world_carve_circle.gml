@@ -8,9 +8,9 @@ var _strength = argument[3];
 
 surface_set_target(World.surTerrain);
 
-for(var i = clamp(_x-_radius, 0, World.width); i < clamp(_x+_radius, 0, World.width); i += 1)
+for(var i = clamp(_x-_radius, 0, World.width-1); i < clamp(_x+_radius, 0, World.width-1); i += 1)
 {
-    for(var j = clamp(_y-_radius, 0, World.height); j < clamp(_y+_radius, 0, World.height); j += 1)
+    for(var j = clamp(_y-_radius, 0, World.height-1); j < clamp(_y+_radius, 0, World.height-1); j += 1)
     {
         if(point_distance(i, j, _x, _y) <= _radius)
         {

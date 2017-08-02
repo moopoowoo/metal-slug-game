@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>-99</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -39,6 +39,7 @@ keyToolRight = vk_right;
 
 // world
 World.surTerrain = noone;
+World.surTerrainBG = noone;
 width = room_width;
 height = room_height*2;
 world_generate(width, height);
@@ -166,10 +167,52 @@ for(var i = 0; i &lt; World.maxParticles; i += 1)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_surface_ext(World.surTerrain, 0, 0, 1, 1, 0, make_color_hsv(0, 0, 50), 1);
-//draw_surface(World.surTerrain, 0, 0);
+            <string>// lighting engine
+var _surLighting = surface_create(view_wview, view_hview);
+surface_set_target(_surLighting);
+draw_clear_alpha(c_black, 0);
+draw_set_color(c_black);
+draw_rectangle(0, 0, view_wview, view_hview, 0);
 draw_set_color(c_white);
-draw_text(view_xview, view_yview, string(fps) + "fps");
+
+// draw lights
+with(Light)
+{
+    light_cast(x, y, lightColor, lightRadius, lightBrightness, lightOvershoot);
+}
+
+surface_reset_target();
+
+var __surLighting = surface_create(view_wview, view_hview);
+surface_set_target(__surLighting);
+draw_clear_alpha(c_black, 0);
+draw_set_color(c_white);
+
+draw_surface_ext(World.surTerrainBG, 0, -view_yview, 1, 1, 0, c_white, 0.75);
+
+// render everything else
+world_entities_render();
+
+draw_surface(World.surTerrain, 0, -view_yview);
+draw_set_blend_mode_ext(bm_zero, bm_src_color);
+draw_surface(_surLighting, 0, 0);
+draw_set_blend_mode(bm_normal);
+
+draw_set_color(c_red);
+draw_rectangle(2, 2, view_wview-2, view_hview-2, 1); // DEBUG
+draw_set_color(c_white);
+
+surface_reset_target();
+
+//draw_surface(World.surTerrain, 0, 0);
+draw_surface_ext(__surLighting, 0, view_yview, 1, 1, 0, c_white, 1);
+draw_set_blend_mode(bm_add);
+repeat(3) draw_surface_ext(__surLighting, 0, view_yview, 1, 1, 0, c_white, 1);
+draw_set_blend_mode(bm_normal);
+
+surface_free(__surLighting);
+surface_free(_surLighting);
+
 
 // particles
 for(var i = 0; i &lt; World.maxParticles; i += 1)
@@ -188,13 +231,11 @@ for(var i = 0; i &lt; World.maxParticles; i += 1)
         1.1);
     }
 }
-draw_set_color(c_white);
 
-// draw lights
-with(Player)
-{
-    light_cast(x, y, lightColor, lightRadius);
-}
+
+// debug
+draw_set_color(c_white);
+draw_text(view_xview, view_yview, string(fps) + "fps");
 
 </string>
           </argument>

@@ -8,6 +8,7 @@
   <sprites name="sprites">
     <sprites name="Player">
       <sprite>sprites\sprPlayer</sprite>
+      <sprite>sprites\sprPlayerArm</sprite>
       <sprites name="Tools">
         <sprite>sprites\sprPlayerCannon</sprite>
         <sprite>sprites\sprPlayerDrill</sprite>
@@ -15,22 +16,34 @@
         <sprite>sprites\sprPlayerLaser</sprite>
       </sprites>
     </sprites>
-    <sprite>sprites\sprTestcircle</sprite>
+    <sprites name="Projectiles">
+      <sprite>sprites\sprCannon</sprite>
+    </sprites>
+    <sprites name="Effects">
+      <sprite>sprites\sprTestcircle</sprite>
+      <sprite>sprites\sprExplosion</sprite>
+    </sprites>
+    <sprite>sprites\sprGems</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
   <scripts name="scripts">
     <script>scripts\world_generate.gml</script>
     <script>scripts\world_carve_point.gml</script>
+    <script>scripts\world_detect_point.gml</script>
     <script>scripts\world_carve_circle.gml</script>
     <script>scripts\light_cast.gml</script>
     <script>scripts\tool_load.gml</script>
     <script>scripts\tool_use.gml</script>
     <script>scripts\particle_spawn.gml</script>
+    <script>scripts\world_entities_render.gml</script>
   </scripts>
   <objects name="objects">
-    <object>objects\Player</object>
     <object>objects\World</object>
+    <object>objects\Light</object>
+    <object>objects\Player</object>
+    <object>objects\Cannon</object>
+    <object>objects\SpriteEffect</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room1</room>
