@@ -52,40 +52,61 @@ switch toolid {
     
         break;
     }
-    case 2:
+    case 2: // machinegun
     {
-    
+        if(machinegunReload <= 0)
+        {
+            machinegunReload = 3;
+            
+            with(instance_create(x, y, Bullet))
+            {
+                spd = 24;
+                direction = tooldir;
+            }
+            
+            // lighting
+            with(instance_create(x+lengthdir_x(16, tooldir), y+lengthdir_y(16, tooldir), Light))
+            {
+                lightColor = make_color_rgb(255, 145, 0);
+                lightRadius = 16;
+                lightOvershoot = 2;
+                lightFadeSpeed = 2;
+                lightRadiusSteps = 8;
+                lightAngleSteps = 8;
+            }
+        }
+        
         break;
     }
     case 3: // drill
     {
-        var _length = 12;
-        var _maxLength = 38;
+        var _length = -4;
+        var _maxLength = 48;
         var _coneWidth = 20;
         
         while(_length < _maxLength)
         {
             for(var i = -_coneWidth; i < _coneWidth; i += 1)
             {
-                var _x = clamp(x+lengthdir_x(_length, tooldir)+lengthdir_x(i, tooldir+90), 0, World.width-1);
-                var _y = clamp(y+lengthdir_y(_length, tooldir)+lengthdir_y(i, tooldir+90), 0, World.height-1);
+                var _x = floor(clamp(x+lengthdir_x(_length, tooldir)+lengthdir_x(i, tooldir+90), 0, World.width-1));
+                var _y = floor(clamp(y+lengthdir_y(_length, tooldir)+lengthdir_y(i, tooldir+90), 0, World.height-1));
                 
                 if(World.terrain[_x, _y] != 0)
                 {
                     // particles
                     var _dir = random(360);
-                    var _hspd = lengthdir_x(random(4), _dir);
-                    var _vspd = lengthdir_y(random(4), _dir);
+                    var _hspd = lengthdir_x(random(8), _dir);
+                    var _vspd = lengthdir_y(random(8), _dir);
                 
                     if(random(World.terrain_durability[_x, _y]) <= 0.1)
                     particle_spawn(_x+lengthdir_x(1, point_direction(_x, _y, x, y)),
                                    _y+lengthdir_y(1, point_direction(_x, _y, x, y)),
                     lengthdir_x(random(_hspd), _dir),
                     lengthdir_y(random(_vspd), _dir),
-                    merge_color(World.terrain_color[_x, _y], c_black, 0.25));
+                    merge_color(World.terrain_color[_x, _y], c_black, /*0.25*/ 0));
                     
                     // mine
-                    world_carve_point(_x, _y, 1);
+                    world_carve_point(_x, _y, 4/ceil(point_distance(x, y, _x, _y)/8));
                 }
             }
             

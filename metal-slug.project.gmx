@@ -18,6 +18,7 @@
     </sprites>
     <sprites name="Projectiles">
       <sprite>sprites\sprCannon</sprite>
+      <sprite>sprites\sprBullet</sprite>
     </sprites>
     <sprites name="Effects">
       <sprite>sprites\sprTestcircle</sprite>
@@ -28,6 +29,15 @@
   <backgrounds name="background"/>
   <paths name="paths"/>
   <scripts name="scripts">
+    <scripts name="Noise">
+      <script>scripts\perlinNoise.gml</script>
+      <script>scripts\interpolatedNoise.gml</script>
+      <script>scripts\smoothNoise.gml</script>
+      <script>scripts\noise.gml</script>
+      <script>scripts\interpolate.gml</script>
+      <script>scripts\ridgedMF.gml</script>
+      <script>scripts\ridge.gml</script>
+    </scripts>
     <script>scripts\world_generate.gml</script>
     <script>scripts\world_carve_point.gml</script>
     <script>scripts\world_detect_point.gml</script>
@@ -41,9 +51,11 @@
   <objects name="objects">
     <object>objects\World</object>
     <object>objects\Light</object>
+    <object>objects\SpriteEffect</object>
+    <object>objects\projectile</object>
     <object>objects\Player</object>
     <object>objects\Cannon</object>
-    <object>objects\SpriteEffect</object>
+    <object>objects\Bullet</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room1</room>

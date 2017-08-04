@@ -40,7 +40,7 @@ draw_set_color(c_white);
 surface_reset_target();
 
 draw_set_blend_mode(bm_add);
-draw_surface(_sur, _x-_surSize/2, _y-_surSize/2-view_yview);
+draw_surface(_sur, _x-_surSize/2-view_xview, _y-_surSize/2-view_yview);
 draw_set_blend_mode(bm_normal);
 
 surface_free(_sur);

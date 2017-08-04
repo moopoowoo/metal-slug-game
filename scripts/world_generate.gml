@@ -11,7 +11,18 @@ var _height = argument[1];
 World.surTerrain = surface_create(_width, _height);
 surface_set_target(World.surTerrain);
 
+// noise settings
+var _lacunarity = 0.5;      // ???                              0.5
+var _gain = 0.5;            // transparency? bigger holes       0.5
+var _offset = 0.25;         // tunnel width                     0.25
+var _octaves = 1.25;           // noise quality                    5
+var _xScale = 0.025;        // horizontal scale                 0.025
+var _yScale = 0.025;        // vertical scale                   0.025
+//var _seed = current_time/1000;
+var _seed = current_time;
+
 // dirt
+show_debug_message("Filling in the world...");
 for(var i = 0; i < _width; i += 1)
 {
     for(var j = 0; j < _height; j += 1)
@@ -24,12 +35,45 @@ for(var i = 0; i < _width; i += 1)
     }
 }
 
-// gems
-for(var i = 0; i < _width; i += 1)
+// background
+show_debug_message("Creating the background...");
+World.surTerrainBG = surface_create(_width, _height);
+surface_copy(World.surTerrainBG, 0, 0, World.surTerrain);
+
+// caves
+show_debug_message("Carving caves...");
+draw_set_blend_mode(bm_subtract); // delete mode
+for(var i = 0; i <= width; i += 1)
 {
-    for(var j = 0; j < _height; j += 1)
+    show_debug_message(string((i/width)*100) + "%");
+    
+    for(var j = 0; j <= height; j += 1)
     {
-        if(random(100) <= 0.01)
+        var _res = ridgedMF(i, j, _seed, _lacunarity, _gain, _offset, _octaves, _xScale, _yScale);
+        
+        if(_res <= 0.01)
+        {
+            World.terrain_durability[i, j] = 0;
+            World.terrain[i, j] = 0; // air
+            
+            //surface_set_target(World.surTerrain);
+            draw_point_color(i, j, c_black);
+            //surface_reset_target();
+        }
+        
+        //show_debug_message(_res);
+    }
+}
+draw_set_blend_mode(bm_normal);
+
+// gems
+show_debug_message("Placing gems...");
+for(var i = 0; i <= _width; i += 1)
+{
+    for(var j = 0; j <= _height; j += 1)
+    {
+        if(random(100) <= 0.025
+        && World.terrain[clamp(i+round(sprite_get_width(sprGems)/2), 0, World.width-1), clamp(j+round(sprite_get_height(sprGems)/2), 0, World.height-1)] != 0) // air
         {
             var _frame = random(sprite_get_number(sprGems)-1);
             var __sur = surface_create(sprite_get_width(sprGems), sprite_get_height(sprGems));
@@ -66,7 +110,8 @@ for(var i = 0; i < _width; i += 1)
 }
 
 surface_reset_target();
+show_debug_message("Done!");
 
-World.surTerrainBG = surface_create(_width, _height);
-surface_copy(World.surTerrainBG, 0, 0, World.surTerrain);
+instance_create(width/2, 48, Player);
+generated = 1;
 

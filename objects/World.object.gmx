@@ -42,7 +42,8 @@ World.surTerrain = noone;
 World.surTerrainBG = noone;
 width = room_width;
 height = room_height*2;
-world_generate(width, height);
+generated = 0;
+//world_generate(width, height);
 
 // particles
 World.maxParticles = 320;
@@ -82,7 +83,9 @@ for(var i = 0; i &lt; World.maxParticles; i += 1)
           <argument>
             <kind>1</kind>
             <string>// DEBUG
-if(keyboard_check_pressed(ord('R'))) game_restart();
+if(keyboard_check_released(ord('R')))
+if(!generated) world_generate(width, height);
+else game_restart();
 
 if(mouse_check_button(mb_left))
 {
@@ -100,6 +103,7 @@ if(mouse_check_button(mb_right))
 
 if(instance_exists(Player))
 {
+    view_xview = clamp(Player.x-view_wview/2, 0, width-view_wview);
     view_yview = clamp(Player.y-view_hview/2, 0, height-view_hview);
 }
 
@@ -167,75 +171,119 @@ for(var i = 0; i &lt; World.maxParticles; i += 1)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>// lighting engine
-var _surLighting = surface_create(view_wview, view_hview);
-surface_set_target(_surLighting);
-draw_clear_alpha(c_black, 0);
-draw_set_color(c_black);
-draw_rectangle(0, 0, view_wview, view_hview, 0);
-draw_set_color(c_white);
+            <string>var _drawText = "";
 
-// draw lights
-with(Light)
+if(generated)
 {
-    light_cast(x, y, lightColor, lightRadius, lightBrightness, lightOvershoot);
+    // lighting engine
+    var _surLighting = surface_create(view_wview, view_hview);
+    surface_set_target(_surLighting);
+    draw_clear_alpha(c_black, 0);
+    draw_set_color(c_black);
+    draw_rectangle(0, 0, view_wview, view_hview, 0);
+    draw_set_color(c_white);
+    
+    // draw lights
+    with(Light)
+    {
+        light_cast(x, y, lightColor, lightRadius, lightBrightness, lightOvershoot);
+    }
+    
+    surface_reset_target();
+    
+    var __surLighting = surface_create(view_wview, view_hview);
+    surface_set_target(__surLighting);
+    draw_clear_alpha(c_black, 0);
+    draw_set_color(c_white);
+    
+    draw_surface_ext(World.surTerrainBG, -view_xview, -view_yview, 1, 1, 0, c_white, 0.75);
+    
+    // render everything else
+    world_entities_render();
+    
+    // particles
+    for(var i = 0; i &lt; World.maxParticles; i += 1)
+    {
+        if(World.particle_vis[i])
+        {
+            draw_set_color(World.particle_col[i]);
+            draw_line_width(World.particle_x[i], World.particle_y[i],
+            World.particle_x[i]-World.particle_hspd[i]/2, World.particle_y[i]-World.particle_vspd[i]/2,
+            1.1);
+        }
+    }
+    
+    draw_surface(World.surTerrain, -view_xview, -view_yview);
+    draw_set_blend_mode_ext(bm_zero, bm_src_color);
+    draw_surface(_surLighting, 0, 0);
+    draw_set_blend_mode(bm_normal);
+    
+    draw_set_color(c_red);
+    draw_rectangle(2, 2, view_wview-2, view_hview-2, 1); // DEBUG
+    draw_set_color(c_white);
+    
+    surface_reset_target();
+    
+    //draw_surface(World.surTerrain, 0, 0);
+    draw_surface_ext(__surLighting, view_xview, view_yview, 1, 1, 0, c_white, 1);
+    draw_set_blend_mode(bm_add);
+    repeat(3) draw_surface_ext(__surLighting, view_xview, view_yview, 1, 1, 0, c_white, 1);
+    draw_set_blend_mode(bm_normal);
+    
+    surface_free(__surLighting);
+    surface_free(_surLighting);
+}
+else
+{
+    if(keyboard_check(ord('R')))
+    _drawText += "#Generating...";
+    else
+    _drawText += "#Press R to generate a new level";
 }
 
-surface_reset_target();
-
-var __surLighting = surface_create(view_wview, view_hview);
-surface_set_target(__surLighting);
-draw_clear_alpha(c_black, 0);
+// debug
 draw_set_color(c_white);
 
-draw_surface_ext(World.surTerrainBG, 0, -view_yview, 1, 1, 0, c_white, 0.75);
-
-// render everything else
-world_entities_render();
-
-draw_surface(World.surTerrain, 0, -view_yview);
-draw_set_blend_mode_ext(bm_zero, bm_src_color);
-draw_surface(_surLighting, 0, 0);
-draw_set_blend_mode(bm_normal);
-
-draw_set_color(c_red);
-draw_rectangle(2, 2, view_wview-2, view_hview-2, 1); // DEBUG
-draw_set_color(c_white);
-
-surface_reset_target();
-
-//draw_surface(World.surTerrain, 0, 0);
-draw_surface_ext(__surLighting, 0, view_yview, 1, 1, 0, c_white, 1);
-draw_set_blend_mode(bm_add);
-repeat(3) draw_surface_ext(__surLighting, 0, view_yview, 1, 1, 0, c_white, 1);
-draw_set_blend_mode(bm_normal);
-
-surface_free(__surLighting);
-surface_free(_surLighting);
-
+// fps
+_drawText += "#" + string(fps) + "fps";
 
 // particles
 for(var i = 0; i &lt; World.maxParticles; i += 1)
 {
     if(!World.particle_vis[i])
     {
-        draw_text(view_xview, view_yview+16, string(i) + " particles");
+        _drawText += "#" + string(i) + " particles";
         break;
-    }
-    else
-    {
-        draw_set_color(World.particle_col[i]);
-        //draw_point(World.particle_x[i], World.particle_y[i]);
-        draw_line_width(World.particle_x[i], World.particle_y[i],
-        World.particle_x[i]-World.particle_hspd[i], World.particle_y[i]-World.particle_vspd[i],
-        1.1);
     }
 }
 
+// full map view
+if(keyboard_check(vk_f1)
+&amp;&amp; generated)
+{
+    draw_set_color(c_black);
+    draw_rectangle(view_xview, view_yview, view_xview+view_wview, view_yview+view_hview, 0);
+    
+    var _min = max(World.width/view_wview, World.height/view_hview);
+    var _minX = 0, _minY = 0;
+    if(World.width/view_wview &lt; World.height/view_hview)
+    {
+        _minX = view_wview/4;
+    }
+    else
+    {
+        _minY = view_hview/4;
+    }
+    
+    draw_set_color(c_white);
+    draw_surface_ext(World.surTerrain, view_xview+_minX, view_yview+_minY,
+    1/_min,
+    1/_min,
+    0, c_white, 1);
+    _drawText += "#full map view (" + string(width) + "x" + string(height) + ")#minX: " + string(_minX) + "#minY: " + string(_minY);
+}
 
-// debug
-draw_set_color(c_white);
-draw_text(view_xview, view_yview, string(fps) + "fps");
+draw_text(view_xview, view_yview, _drawText);
 
 </string>
           </argument>

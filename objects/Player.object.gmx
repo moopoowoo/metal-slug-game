@@ -70,6 +70,7 @@ grav = 0.4;
 
 // reloads
 cannonReload = 0;
+machinegunReload = 0;
 
 // temporary particle stuff used for testing
 sys=part_system_create();
@@ -166,7 +167,7 @@ for(var i = x+hBoxXOffset; i &lt; x+hBoxXOffset+hBoxWidth; i += 4)
         || i+xVel &lt; 0
         || i+xVel &gt;= World.width)
         {
-            if(xVel &lt; 2)
+            if(xVel &lt; 5)
             xVel *= -0.5;
             else
             {
@@ -178,7 +179,7 @@ for(var i = x+hBoxXOffset; i &lt; x+hBoxXOffset+hBoxWidth; i += 4)
         || j+yVel &lt; 0
         || j+yVel &gt;= World.height)
         {
-            if(yVel &lt; 2)
+            if(yVel &lt; 5)
             yVel *= -0.5;
             else
             {
@@ -285,7 +286,7 @@ for(var i = 0; i &lt; 4; i += 1)
 // lighting
 with(instance_create(x, y, Light)) // amb
 {
-    lightColor = make_color_rgb(10, 5, 10);
+    lightColor = make_color_rgb(40, 20, 40);
     lightRadius = 128;
     lightOvershoot = 24;
     lightFadeSpeed = 1;
@@ -309,6 +310,7 @@ if (keyboard_check(World.keyToolDown)) tool_use(activeTool[_rot0,0],270);
 
 // reloads
 cannonReload -= 1;
+machinegunReload -= 1;
 
 </string>
           </argument>
