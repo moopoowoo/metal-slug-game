@@ -42,6 +42,7 @@ activeTool[3,0]=3;
 activeTool[3,1]=3;
 
 rotation=0; // rotation determines the order of the tools
+sumRotation=0; // i'd write an explanation for this but i don't have the time right now sorry but hey at least it works
 drawRot=0;
 
 // make sure it doesn't get stuck when spawning
@@ -107,8 +108,9 @@ if(_rot1 &gt; 3) _rot1 -= 4;
 if(_rot2 &gt; 3) _rot2 -= 4;
 
 rotation += keyboard_check_pressed(World.keyRotCCW) - keyboard_check_pressed(World.keyRotCW);
+sumRotation += keyboard_check_pressed(World.keyRotCCW) - keyboard_check_pressed(World.keyRotCW);
 if rotation&lt;0 rotation=3 else if rotation&gt;3 rotation=0;
-drawRot=lerp(drawRot,rotation,.1); // fancy lerp effect for rotating the tools
+drawRot=lerp(drawRot,sumRotation,.1); // fancy lerp effect for rotating the tools
 
 // move around
 var _accel = accel;

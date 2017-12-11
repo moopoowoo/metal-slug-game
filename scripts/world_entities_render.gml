@@ -40,6 +40,7 @@ with(Player)
     
     // draw tank
     draw_sprite(sprite_index, image_index, x+_xo, y+_yo);
+    draw_text(x+32,y+32,string(rotation));
     
     
     // DEBUG
