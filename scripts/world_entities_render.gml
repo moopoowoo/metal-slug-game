@@ -40,10 +40,10 @@ with(Player)
     
     // draw tank
     draw_sprite(sprite_index, image_index, x+_xo, y+_yo);
-    draw_text(x+32,y+32,string(rotation));
-    
+    draw_hologram(xLerp+_xo+16,yLerp+_yo+16,sprHologramimages,0,string(timeAlive));
     
     // DEBUG
+
     // hitbox
     /*draw_set_color(c_red);
     draw_rectangle(x+hBoxXOffset, y+hBoxYOffset+_yo, x+hBoxXOffset+hBoxWidth, y+hBoxYOffset+hBoxHeight+_yo, 1);
@@ -58,4 +58,3 @@ with(projectile)
 {
     draw_sprite_ext(sprite_index, image_index, x+_xo, y+_yo, image_xscale, image_yscale, direction, image_blend, image_alpha);
 }
-

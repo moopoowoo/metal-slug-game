@@ -25,6 +25,7 @@
       <sprite>sprites\sprExplosion</sprite>
     </sprites>
     <sprite>sprites\sprGems</sprite>
+    <sprite>sprites\sprHologramimages</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -47,7 +48,11 @@
     <script>scripts\tool_use.gml</script>
     <script>scripts\particle_spawn.gml</script>
     <script>scripts\world_entities_render.gml</script>
+    <script>scripts\draw_hologram.gml</script>
   </scripts>
+  <fonts name="fonts">
+    <font>fonts\fntHologram</font>
+  </fonts>
   <objects name="objects">
     <object>objects\World</object>
     <object>objects\Light</object>

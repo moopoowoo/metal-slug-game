@@ -60,6 +60,8 @@ for(var i = 0; i &lt; World.maxParticles; i += 1)
     World.particle_vis[i] = 0;
 }
 
+xLerp=0;
+yLerp=0;
 </string>
           </argument>
         </arguments>
@@ -148,7 +150,6 @@ for(var i = 0; i &lt; World.maxParticles; i += 1)
         }
     }
 }
-
 </string>
           </argument>
         </arguments>
