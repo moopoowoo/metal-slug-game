@@ -1,6 +1,6 @@
 /// world_carve_circle(x, y, radius, strength);
-var _x = argument[0];
-var _y = argument[1];
+var _x = clamp(argument[0], 0, World.width-1);
+var _y = clamp(argument[1], 0, World.height-1);
 var _radius = argument[2];
 var _strength = argument[3];
 

@@ -22,9 +22,13 @@ var _yScale = 0.025;        // vertical scale                   0.025
 var _seed = current_time;
 
 // dirt
-window_set_caption("Filling in the world...");
 for(var i = 0; i < _width; i += 1)
 {
+    var _bars = "";
+    repeat(floor(i/width*25)) _bars += "!";
+    repeat(25-floor(i/width*25)) _bars += ".";
+    window_set_caption("Filling in the world... [" + _bars + "] " + string(floor((i/width)*100)) + "%");
+    
     for(var j = 0; j < _height; j += 1)
     {
         World.terrain[i, j] = 1; // dirt
@@ -42,7 +46,7 @@ surface_copy(World.surTerrainBG, 0, 0, World.surTerrain);
 
 // caves
 draw_set_blend_mode(bm_subtract); // delete mode
-for(var i = 0; i <= width; i += 1)
+/*for(var i = 0; i <= width; i += 1)
 {
     var _bars = "";
     repeat(floor(i/width*25)) _bars += "!";
@@ -65,11 +69,101 @@ for(var i = 0; i <= width; i += 1)
         
         //show_debug_message(_res);
     }
+}*/
+var _nextTunnel = 100;
+for(var j = _nextTunnel; j <= _height; j += 1)
+{
+    var _jbars = "";
+    repeat(floor(j/height*25)) _jbars += "!";
+    repeat(25-floor(j/height*25)) _jbars += ".";
+    window_set_caption("Carving caves... [" + _jbars + "] " + string(floor((j/height)*100)) + "%");
+    
+    if(j == _nextTunnel)
+    {
+        var tunnelY = 0;
+        var tunnelDirMaxDeviation = 5+random(85);
+        var tunnelDir = random_range(-tunnelDirMaxDeviation, tunnelDirMaxDeviation);
+        var tunnelDirSpeed = 1+random(20);
+        var tunnelTargetDir = (-1*sign(tunnelDir))*abs(random_range(-tunnelDirMaxDeviation, tunnelDirMaxDeviation));
+        var tunnelRadius = 10+random(40);
+        var tunnelRadiusMaxRand = random(10);
+        
+        for(var i = 0; i <= _width; i += 1)
+        {
+            var _ibars = "";
+            repeat(floor(i/width*25)) _ibars += "!";
+            repeat(25-floor(i/width*25)) _ibars += ".";
+            window_set_caption("Carving caves... [" + _jbars + "] " + string(floor((j/height)*100))
+            + "% - Carving tunnel... [" + _ibars + "] " + string(floor((i/width)*100)) + "%");
+            
+            tunnelY += lengthdir_y(1, tunnelDir);
+            //tunnelDir += tunnelDirSpeed*(-abs(tunnelTargetDir));
+            tunnelDir -= tunnelDirSpeed*sign(tunnelTargetDir);
+            
+            if(abs(tunnelDir) >= abs(tunnelTargetDir))
+            {
+                tunnelTargetDir = (-1*sign(tunnelTargetDir))*random(tunnelDirMaxDeviation);
+                tunnelDirSpeed = (1+random(20))/(tunnelRadius/50);
+            }
+            
+            /*World.terrain_durability[i, j+tunnelY] = 0;
+            World.terrain[i, j+tunnelY] = 0; // air
+            
+            draw_point_color(i, j+tunnelY, c_black);*/
+            world_carve_circle(i, j+tunnelY, tunnelRadius+random(tunnelRadiusMaxRand), 3);
+            i += irandom(tunnelRadius/2);
+        }
+        
+        _nextTunnel += round(tunnelRadius*5+random(tunnelRadius*5));
+    }
 }
 draw_set_blend_mode(bm_normal);
 
+
+// grass
+for(var i = 0; i < _width; i += 1)
+{
+    var _bars = "";
+    repeat(floor(i/width*25)) _bars += "!";
+    repeat(25-floor(i/width*25)) _bars += ".";
+    window_set_caption("Adding grass... [" + _bars + "] " + string(floor((i/width)*100)) + "%");
+    
+    for(var j = 0; j < _height; j += 1)
+    {
+        if(world_detect_point(i, j)
+        && !world_detect_point(i, clamp(j-1, 0, _height-1)))
+        {
+            var _y = 0
+            
+            repeat(1+irandom(3))
+            {
+                var __y = clamp(j+_y, 0, _height-1);
+                World.terrain[i, __y] = 2; // grass
+                World.terrain_durability[i, __y] = 3;
+                var _col = make_color_hsv((256/3), 125+random(100), 75+random(100));
+                World.terrain_color[i, __y] = _col;
+                draw_point_color(i, __y, _col);
+                _y -= 1;
+            }
+            
+            _y = 1
+            
+            repeat(1+irandom(2))
+            {
+                var __y = clamp(j+_y, 0, _height-1);
+                //World.terrain[i, __y] = 2; // grass
+                //World.terrain_durability[i, __y] = 3;
+                var _col = make_color_hsv((256/3), 125+random(100), 25+random(100));
+                World.terrain_color[i, __y] = _col;
+                draw_point_color(i, __y, _col);
+                _y += 1;
+            }
+        }
+    }
+}
+
 // gems
-window_set_caption("Placing gems...");
+/*window_set_caption("Placing gems...");
 for(var i = 0; i <= _width; i += 1)
 {
     for(var j = 0; j <= _height; j += 1)
@@ -109,7 +203,7 @@ for(var i = 0; i <= _width; i += 1)
             surface_free(__sur);
         }
     }
-}
+}*/
 
 surface_reset_target();
 window_set_caption("Done!");
