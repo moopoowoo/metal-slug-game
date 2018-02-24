@@ -22,7 +22,7 @@ var _yScale = 0.025;        // vertical scale                   0.025
 var _seed = current_time;
 
 // dirt
-show_debug_message("Filling in the world...");
+window_set_caption("Filling in the world...");
 for(var i = 0; i < _width; i += 1)
 {
     for(var j = 0; j < _height; j += 1)
@@ -36,16 +36,18 @@ for(var i = 0; i < _width; i += 1)
 }
 
 // background
-show_debug_message("Creating the background...");
+window_set_caption("Creating the background...");
 World.surTerrainBG = surface_create(_width, _height);
 surface_copy(World.surTerrainBG, 0, 0, World.surTerrain);
 
 // caves
-show_debug_message("Carving caves...");
 draw_set_blend_mode(bm_subtract); // delete mode
 for(var i = 0; i <= width; i += 1)
 {
-    show_debug_message(string((i/width)*100) + "%");
+    var _bars = "";
+    repeat(floor(i/width*25)) _bars += "!";
+    repeat(25-floor(i/width*25)) _bars += ".";
+    window_set_caption("Carving caves... [" + _bars + "] " + string(floor((i/width)*100)) + "%");
     
     for(var j = 0; j <= height; j += 1)
     {
@@ -67,7 +69,7 @@ for(var i = 0; i <= width; i += 1)
 draw_set_blend_mode(bm_normal);
 
 // gems
-show_debug_message("Placing gems...");
+window_set_caption("Placing gems...");
 for(var i = 0; i <= _width; i += 1)
 {
     for(var j = 0; j <= _height; j += 1)
@@ -110,7 +112,7 @@ for(var i = 0; i <= _width; i += 1)
 }
 
 surface_reset_target();
-show_debug_message("Done!");
+window_set_caption("Done!");
 
 instance_create(width/2, 48, Player);
 generated = 1;

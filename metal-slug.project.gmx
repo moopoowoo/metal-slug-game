@@ -44,6 +44,7 @@
     <script>scripts\world_detect_point.gml</script>
     <script>scripts\world_carve_circle.gml</script>
     <script>scripts\light_cast.gml</script>
+    <script>scripts\smoke_draw.gml</script>
     <script>scripts\tool_load.gml</script>
     <script>scripts\tool_use.gml</script>
     <script>scripts\particle_spawn.gml</script>
@@ -56,6 +57,7 @@
   <objects name="objects">
     <object>objects\World</object>
     <object>objects\Light</object>
+    <object>objects\Smoke</object>
     <object>objects\SpriteEffect</object>
     <object>objects\projectile</object>
     <object>objects\Player</object>

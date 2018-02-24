@@ -41,7 +41,7 @@ keyToolRight = vk_right;
 World.surTerrain = noone;
 World.surTerrainBG = noone;
 width = room_width;
-height = room_height*2;
+height = room_height; // TODO: re-add *2 later, removed just for faster debugging
 generated = 0;
 //world_generate(width, height);
 
@@ -97,10 +97,25 @@ if(mouse_check_button(mb_right))
 {
     // particles
     var _dir = random(360);
+    var _hspd = lengthdir_x(random(1), _dir);
+    var _vspd = lengthdir_y(random(1), _dir);
+    var _col = make_color_hsv(random(255), 255, 255);
+    particle_spawn(mouse_x, mouse_y, _hspd, _vspd, _col);
+}
+if(mouse_check_button(mb_middle))
+{
+    // particles
+    var _dir = random(360);
     var _hspd = lengthdir_x(random(4), _dir);
     var _vspd = lengthdir_y(random(4), _dir);
     var _col = make_color_hsv(random(255), 255, 255);
-    particle_spawn(mouse_x, mouse_y, _hspd, _vspd, _col);
+    
+    with(instance_create(mouse_x, mouse_y, Smoke))
+    {
+        hspeed = _hspd;
+        vspeed = _vspd;
+        smokeColor = _col;
+    }
 }
 
 if(instance_exists(Player))

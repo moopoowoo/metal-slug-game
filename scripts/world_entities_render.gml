@@ -58,3 +58,14 @@ with(projectile)
 {
     draw_sprite_ext(sprite_index, image_index, x+_xo, y+_yo, image_xscale, image_yscale, direction, image_blend, image_alpha);
 }
+
+// draw smoke
+//draw_set_blend_mode(bm_subtract);
+//draw_set_blend_mode_ext(bm_zero, bm_dest_color);
+draw_set_blend_mode(bm_add);
+with(Smoke)
+{
+    smoke_draw(x-view_xview, y-view_yview, smokeColor, smokeRadius, smokeDispersion, smokeDispersionQuality);
+}
+draw_set_blend_mode(bm_normal);
+
