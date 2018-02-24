@@ -25,7 +25,33 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>// debug
+            <string>/*window_set_position(10, 10);
+var _w = display_get_width()-20;
+var _h = display_get_height()-20;
+window_set_size(_w, _h);
+room_width = _w;
+room_height = _h;
+view_wview = _w;
+view_hview = _h;*/
+//window_set_position(10, 20);
+var _w = room_width;
+var _h = room_height;
+
+while(_w+room_width*0.25 &lt;= display_get_width()
+&amp;&amp; _h+room_height*0.25 &lt;= display_get_height())
+{
+    _w += room_width*0.25;
+    _h += room_height*0.25;
+}
+
+window_set_size(_w, _h);
+room_width = _w;
+room_height = _h;
+view_wview = _w;
+view_hview = _h;
+window_center();
+
+// debug
 DEBUG_LIGHTING_DISABLED = 0;
 
 // controls
